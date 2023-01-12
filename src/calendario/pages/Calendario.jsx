@@ -19,6 +19,7 @@ export const Calendario = () => {
    <>
     <Navbar nombre={name} btn1="Diario" btn2="Salir" />
     <ViewCanlendario />
+
    </>
    
   )

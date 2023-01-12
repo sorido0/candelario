@@ -5,29 +5,27 @@ import { Calendar } from 'react-big-calendar'
 
 // Idioma ingles {import enUS from 'date-fns/locale/en-US'}
 
-import { addHours } from 'date-fns'
+
 
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { localizer, valoresEnEspanol } from './../helpers';
 import { EventoCalendario, ViewModel } from './componentes';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
+import { useUiStore, userCalendarStore } from './../hooks';
+import { ButtonCreate } from './../componentes/ButtonCreate';
+import { ButtonEliminar } from '../componentes/ButtonEliminar';
 
 
-const miEvento = [{
-  title: 'Mi cumpleaños',
-  notes: 'Comprarme algo shigon',
-  allDay: true,
-  start: new Date(),
-  end: addHours(new Date(), 2),
-  bgColor: '#fafafa',
-  user: {
-    _id: '123',
-    name: 'Sorido0',
-  },
 
-}]
+
+
+
 
 export const ViewCanlendario = (props) => {
+
+  const { abrirModalEnCalendar } = useUiStore();
+  const { events, selecionarEventoCa, noEnventoSelecionadoCa } = userCalendarStore();
+
 
   // Importamos useState para poder cambiar el estado de la variable vistaCalen
   //const [vistaCalen, setvistaCalen] = useState( localStorage.getItem('vistaCalen') || "month")
@@ -42,8 +40,6 @@ export const ViewCanlendario = (props) => {
   const stelysEvent = (event, start, end, isSelected) => {
     //console.log(event, start, end, isSelected)
 
-
-
     const style = {
       backgroundColor: '#000',
       borderRadius: '0px',
@@ -56,12 +52,14 @@ export const ViewCanlendario = (props) => {
     }
   };
 
-  const DobleCLick = (event) => {
-    console.log({ DobleCLick: event })
+  const DobleCLick = () => {
+    abrirModalEnCalendar();
   }
 
   const selecionEvento = (event) => {
-    console.log({ selecionEvento: event })
+    console.log({ sorido0: event })
+    selecionarEventoCa(event)
+   // noEnventoSelecionadoCa(event)
   }
 
   const vistaCalendario = (event) => {
@@ -70,15 +68,15 @@ export const ViewCanlendario = (props) => {
     // Guardamos la vista en el localstorage
     localStorage.setItem('vistaCalen', event)
     //setvistaCalen(event)
+
+    // Ocultal el boto de eliminar 
+    //noEnventoSelecionadoCa()
     return event
   }
 
   const vistaCalen = useMemo(() => {
     return localStorage.getItem('vistaCalen') || "month"
   }, [])
-
-  
-
 
 
   return (
@@ -87,7 +85,7 @@ export const ViewCanlendario = (props) => {
         <Calendar
           culture='es'
           localizer={localizer}
-          events={miEvento}
+          events={events}
           defaultView={vistaCalen}
           startAccessor="start"
           endAccessor="end"
@@ -95,15 +93,18 @@ export const ViewCanlendario = (props) => {
           messages={valoresEnEspanol()}
           eventPropGetter={stelysEvent}
           components={{
-            event: EventoCalendario
+            events: EventoCalendario
           }}
           onDoubleClickEvent={DobleCLick}
           onSelectEvent={selecionEvento}
           onView={vistaCalendario}
         />
+      <ViewModel />
+      <ButtonCreate />
+      <ButtonEliminar />
+
       </div>
 
-          <ViewModel />
     </>
   )
 

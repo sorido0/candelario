@@ -39,3 +39,35 @@
     outline: none;
     padding: 10px;
 };
+
+
+/* Fabs button*/
+#fav {
+    background-color: #4CAF50;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    height: 50px;
+    position: fixed;
+    right: 20px;
+    text-align: center;
+    top: 20px;
+    width: 50px;
+    z-index: 999;
+};
+
+.sorido0 {
+    background-color: #4CAF50;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    height: 50px;
+    position: fixed;
+    right: 20px;
+    text-align: center;
+    top: 20px;
+    width: 50px;
+    z-index: 999;
+};

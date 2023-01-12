@@ -25,7 +25,7 @@ export const AppRouter = () => {
 
            
             }
-            <Route path="/home" element={<Home />} />
+            <Route index element={<Home />} />
             <Route path='/*' element={ <Navigate to='home' /> } />
 
             
